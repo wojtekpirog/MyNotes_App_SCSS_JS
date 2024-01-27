@@ -29,7 +29,13 @@ const setCurrentYear = () => {
 }
 
 const toggleSidebar = () => {
-  navbarLinks.classList.toggle("sidebar-collapse");
+  if (navbarLinks.classList.contains("sidebar-collapse")) {
+    navbarLinks.classList.remove("sidebar-collapse");
+    hamburger.setAttribute("src", "./assets/images/hamburger.svg");
+  } else {
+    navbarLinks.classList.add("sidebar-collapse");
+    hamburger.setAttribute("src", "./assets/images/x.svg");
+  }
 }
 
 const closeSidebar = () => {
