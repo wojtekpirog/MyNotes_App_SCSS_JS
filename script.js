@@ -6,42 +6,38 @@ let mainContent;
 const date = new Date();
 const fullYear = date.getFullYear();
 
-const main = () => {
+const main = () => { 
   prepareDOMElements();
-  prepareDOMEvents();
-  setCurrentYear();
+  prepareDOMEvents();  
 }
 
 const prepareDOMElements = () => {
   hamburger = document.querySelector("div.hamburger-menu > img");
   currentYear = document.querySelector("span.year");
   navbarLinks = document.querySelector("div.navbar-links > ul");
-  mainContent = document.querySelector("main");
+  currentYear.textContent = fullYear;
 }
 
 const prepareDOMEvents = () => {
   hamburger.addEventListener("click", toggleSidebar);
-  mainContent.addEventListener("click", closeSidebar);
-}
-
-const setCurrentYear = () => {
-  currentYear.textContent = fullYear;  
 }
 
 const toggleSidebar = () => {
   if (navbarLinks.classList.contains("sidebar-collapse")) {
-    navbarLinks.classList.remove("sidebar-collapse");
+    closeSidebar();
     hamburger.setAttribute("src", "./assets/images/hamburger.svg");
   } else {
-    navbarLinks.classList.add("sidebar-collapse");
+    openSidebar();
     hamburger.setAttribute("src", "./assets/images/x.svg");
   }
 }
 
 const closeSidebar = () => {
-  if (navbarLinks.classList.contains("sidebar-collapse")) {
-    navbarLinks.classList.remove("sidebar-collapse");
-  }
+  navbarLinks.classList.remove("sidebar-collapse");
+}
+
+const openSidebar = () => {
+  navbarLinks.classList.add("sidebar-collapse");
 }
 
 document.addEventListener("DOMContentLoaded", main);
