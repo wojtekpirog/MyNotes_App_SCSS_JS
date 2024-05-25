@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "Raleway--regular";
+  src: url("../../assets/fonts/Raleway-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway--light";
+  src: url("../../assets/fonts/Raleway-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway--medium";
+  src: url("../../assets/fonts/Raleway-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway--bold";
+  src: url("../../assets/fonts/Raleway-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: var(--primary-font-regular), sans-serif;
+  background-color: #1f1f1f;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+:root {
+  --primary-font-regular: "Raleway--regular";
+  --primary-font-light: "Raleway--light";
+  --primary-font-medium: "Raleway--medium";
+  --primary-font-bold: "Raleway--bold";
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,22 @@
+@use "./utilities/" as utils;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: var(--primary-font-regular), sans-serif;
+  background-color: utils.$dark;
+  color: utils.$white;
+  overflow-x: hidden;
+}

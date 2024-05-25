@@ -1,0 +1,9 @@
+@use "./reset";
+@use "./utilities" as utils;
+
+:root {
+  --primary-font-regular: "Raleway--regular";
+  --primary-font-light: "Raleway--light";
+  --primary-font-medium: "Raleway--medium";
+  --primary-font-bold: "Raleway--bold";
+}
