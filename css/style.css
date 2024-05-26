@@ -43,10 +43,77 @@ body {
   font-size: 1.6rem;
   font-family: var(--primary-font-regular), sans-serif;
   background-color: #202124;
+  background-image: url("../assets/images/notebook.png");
   color: #fff;
   overflow-x: hidden;
 }
 
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  justify-content: space-between;
+  padding: 1em;
+  background-color: #202124;
+}
+.menu__logo .fa-sticky-note {
+  color: #fbbc04;
+  font-size: 3.2rem;
+  padding: 0.25em;
+}
+.menu__datebox {
+  display: none;
+  gap: 1.4em;
+}
+.menu__date, .menu__time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+.menu__date i, .menu__time i {
+  color: #fbbc04;
+  font-size: 2.6rem;
+}
+.menu__date span, .menu__time span {
+  font-size: 2rem;
+}
+.menu__buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+.menu__button {
+  padding: 0.25em 0.5em;
+  border: 2px solid transparent;
+  border-radius: 0.25em;
+  background-color: transparent;
+  color: #eee;
+  font-family: var(--primary-font-medium), sans-serif;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.menu__button--add:hover {
+  color: #fbbc04;
+}
+.menu__button--delete {
+  color: #c62828;
+}
+.menu__button--delete:hover {
+  color: #7c1818;
+}
+.menu__button:focus {
+  outline: none;
+  border: 2px solid #fbbc04;
+}
+
+@media screen and (min-width: 992px) {
+  .menu__datebox {
+    display: flex;
+  }
+}
 :root {
   --primary-font-regular: "Raleway--regular";
   --primary-font-light: "Raleway--light";

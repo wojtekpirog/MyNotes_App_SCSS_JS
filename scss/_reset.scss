@@ -17,6 +17,7 @@ body {
   font-size: 1.6rem;
   font-family: var(--primary-font-regular), sans-serif;
   background-color: utils.$dark;
+  background-image: url("../assets/images/notebook.png");
   color: utils.$white;
   overflow-x: hidden;
 }

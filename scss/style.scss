@@ -1,5 +1,8 @@
 @use "./reset";
-@use "./utilities" as utils;
+@use "./utilities";
+@use "./components";
+@use "./medium";
+@use "./large";
 
 :root {
   --primary-font-regular: "Raleway--regular";

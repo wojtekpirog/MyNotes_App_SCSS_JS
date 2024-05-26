@@ -1,0 +1,68 @@
+@use "../utilities" as utils;
+
+.menu {
+  @include utils.flexLayout;
+  justify-content: space-between;
+  padding: 1em;
+  background-color: utils.$dark;
+
+  &__logo {
+    .fa-sticky-note {
+      color: utils.$gold;
+      font-size: 3.2rem;
+      padding: .25em;
+    }
+  }
+
+  &__datebox {
+    display: none;
+    gap: 1.4em;
+  }
+
+  &__date,
+  &__time {
+    @include utils.flexLayout;
+
+    i {
+      color: utils.$gold;
+      font-size: 2.6rem;
+    }
+    span {
+      font-size: 2rem;
+    }
+  }
+
+  &__buttons {
+    @include utils.flexLayout;
+  }
+
+  &__button {
+    padding: .25em .5em;
+    border: 2px solid transparent;
+    border-radius: .25em;
+    background-color: transparent;
+    color: utils.$light;
+    font-family: var(--primary-font-medium), sans-serif;
+    font-size: 1.8rem;
+    cursor: pointer;
+
+    &--add {
+      &:hover {
+        color: utils.$gold;
+      }      
+    }
+
+    &--delete {
+      color: utils.$danger;
+      
+      &:hover {
+        color: utils.$danger-dark;
+      }
+    }
+
+    &:focus {
+      outline: none;
+      border: 2px solid utils.$gold;
+    }
+  }
+}
