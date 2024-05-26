@@ -3,13 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>My Notes App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Wojciech Piróg">
   <meta name="description" content="Your trusted note taking app - safe, fast and reliable." />
   <link rel="stylesheet" href="./css/style.css">
-  <title>My Notes App</title>
+  <script src="https://kit.fontawesome.com/7aa1ebf341.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <!-- App menu -->
+  <div class="menu">
+    <!-- Logo -->
+    <h1 class="menu__logo"><i class="fas fa-sticky-note"></i> MyNotes</h1>
+    <!-- Logo -->
+    <!-- Buttons -->
+    <div class="menu__buttons">
+      <!-- Add note -->
+      <button type="button" class="menu__button menu__button--add">
+        <i class="fas fa-plus"></i> Add
+      </button>
+      <!-- Add note -->
+      <!-- Delete all notes -->
+      <button type="button" class="menu__button menu__button--delete">
+        <i class="fas fa-trash-alt"></i> Delete all
+      </button>
+      <!-- Delete all notes -->
+    </div>
+    <!-- Buttons -->
+  </div>
+  <!-- App menu -->
+  <!-- Note area -->
+  <div class="notes__container">
+    <!-- Note -->
+    <div class="notes__note">
+      <!-- Note header -->
+      <div class="notes__header">
+        <!-- Note title -->
+        <h3 class="notes__title">Notatka ze spotkania</h3>
+        <!-- Note title -->
+        <!-- Delete btn -->
+        <button type="button" class="notes__delete-btn">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <!-- Delete btn -->
+      </div>
+      <!-- Note header -->
+      <!-- Note body -->
+      <div class="notes__body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, veniam ex eum in maiores vitae!</div>
+      <!-- Note body -->
+    </div>
+    <!-- Note -->
+  </div>
+  <!-- Note area -->
+  <!-- Note panel -->
+  <div class="notes__panel">
+    <h2>Create note</h2>
+    <!-- Select category -->
+    <label for="category" class="notes__panel-label">Select category</label>
+    <select id="category" class="notes__panel-select">
+      <option value="default" disabled selected> - select category - </option>
+      <option value="shopping">Shopping</option>
+      <option value="work">Work</option>
+      <option value="house">House</option>
+      <option value="other">Other</option>
+    </select>
+    <!-- Select category -->
+    <!-- Note content -->
+    <label for="text">Enter your note's content</label>
+    <textarea id="text"></textarea>
+    <!-- Note content -->
+    <!-- Error -->
+    <p class="notes__panel-error">Complete all fields!</p>
+    <!-- Error -->
+    <!-- Panel buttons -->
+    <div class="notes__panel-buttons">
+      <button type="button" class="notes__panel-button notes__panel-button--save"><i class="fas fa-save"></i> Save</button>
+      <button type="button" class="notes__panel-button notes__panel-button--cancel"><i class="fas fa-times"></i> Cancel</button>
+    </div>
+    <!-- Panel buttons -->
+  </div>
+  <!-- Note panel -->
   <script src="./js/script.js"></script>
 </body>
 </html>
