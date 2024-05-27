@@ -150,7 +150,7 @@
   <!-- Note area -->
   <!-- Note panel -->
   <div class="notes__panel">
-    <h2>Create note</h2>
+    <h2 class="notes__panel-title">Create note</h2>
     <!-- Select category -->
     <label for="category" class="notes__panel-label">Select category</label>
     <select id="category" class="notes__panel-select">
@@ -162,8 +162,8 @@
     </select>
     <!-- Select category -->
     <!-- Note content -->
-    <label for="text">Enter your note's content</label>
-    <textarea id="text"></textarea>
+    <label for="text" class="notes__panel-label">Enter your note's content</label>
+    <textarea id="text" class="notes__panel-text"></textarea>
     <!-- Note content -->
     <!-- Error -->
     <p class="notes__panel-error">Complete all fields!</p>
@@ -176,6 +176,9 @@
     <!-- Panel buttons -->
   </div>
   <!-- Note panel -->
+  <!-- Note shadow -->
+  <div class="notes__shadow"></div>
+  <!-- Note shadow -->
   <script src="./js/script.js"></script>
 </body>
 </html>
