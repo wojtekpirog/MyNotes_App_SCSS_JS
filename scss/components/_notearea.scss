@@ -1,0 +1,45 @@
+@use "../utilities/" as utils;
+
+.notes {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+  }
+
+  &__note {
+    margin: 1em;
+    background-color: utils.$dark;
+    border: 2px solid utils.$light;
+    border-radius: .5em;
+    padding: 1em;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1em;
+    border-bottom: 1px solid rgba(244, 244, 244, .4);
+  }
+
+  &__title {
+    font-size: 1.8rem;
+  }
+
+  &__delete-btn {
+    @include utils.buttonStyles;
+    padding: 0;
+    color: utils.$danger;
+    transition: color 200ms ease;
+    
+    &:hover {
+      color: utils.$danger-dark;
+    }
+  }
+
+  &__body {
+    padding-top: 1em;
+    font-size: 1.4rem;
+  }
+}

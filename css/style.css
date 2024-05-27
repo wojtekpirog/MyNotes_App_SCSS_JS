@@ -64,7 +64,7 @@ body {
 }
 .menu__datebox {
   display: none;
-  gap: 1.4em;
+  gap: 1em;
 }
 .menu__date, .menu__time {
   display: flex;
@@ -79,6 +79,13 @@ body {
 .menu__date span, .menu__time span {
   font-size: 2rem;
 }
+.menu__date span {
+  width: 80px;
+}
+.menu__time span {
+  width: -moz-fit-content;
+  width: fit-content;
+}
 .menu__buttons {
   display: flex;
   justify-content: center;
@@ -86,14 +93,14 @@ body {
   gap: 0.5em;
 }
 .menu__button {
-  padding: 0.25em 0.5em;
+  padding: 0.5em;
   border: 2px solid transparent;
   border-radius: 0.25em;
   background-color: transparent;
   color: #eee;
-  font-family: var(--primary-font-medium), sans-serif;
   font-size: 1.8rem;
   cursor: pointer;
+  font-family: var(--primary-font-medium), sans-serif;
 }
 .menu__button--add:hover {
   color: #fbbc04;
@@ -109,6 +116,59 @@ body {
   border: 2px solid #fbbc04;
 }
 
+.notes__container {
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+}
+.notes__note {
+  margin: 1em;
+  background-color: #202124;
+  border: 2px solid #eee;
+  border-radius: 0.5em;
+  padding: 1em;
+}
+.notes__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1em;
+  border-bottom: 1px solid rgba(244, 244, 244, 0.4);
+}
+.notes__title {
+  font-size: 1.8rem;
+}
+.notes__delete-btn {
+  padding: 0.5em;
+  border: 2px solid transparent;
+  border-radius: 0.25em;
+  background-color: transparent;
+  color: #eee;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0;
+  color: #c62828;
+  transition: color 200ms ease;
+}
+.notes__delete-btn:hover {
+  color: #7c1818;
+}
+.notes__body {
+  padding-top: 1em;
+  font-size: 1.4rem;
+}
+
+@media screen and (min-width: 576px) {
+  .notes__container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+  }
+  .notes__note {
+    width: 280px;
+  }
+}
 @media screen and (min-width: 992px) {
   .menu__datebox {
     display: flex;

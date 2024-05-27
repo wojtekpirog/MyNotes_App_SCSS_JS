@@ -1,6 +1,18 @@
+@use "./colors";
+
 @mixin flexLayout {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: .5em;
+}
+
+@mixin buttonStyles() {
+  padding: .5em;
+  border: 2px solid transparent;
+  border-radius: .25em;
+  background-color: transparent;
+  color: colors.$light;
+  font-size: 1.8rem;
+  cursor: pointer;
 }

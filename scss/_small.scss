@@ -1,0 +1,14 @@
+@media screen and (min-width: 576px) {
+  .notes {
+    &__container {
+      flex-direction: row;
+      justify-content: center;
+      align-items: start;
+      flex-wrap: wrap;
+    }
+
+    &__note {
+      width: 280px;
+    }
+  }
+}

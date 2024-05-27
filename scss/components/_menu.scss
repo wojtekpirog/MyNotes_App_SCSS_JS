@@ -16,7 +16,7 @@
 
   &__datebox {
     display: none;
-    gap: 1.4em;
+    gap: 1em;
   }
 
   &__date,
@@ -32,19 +32,25 @@
     }
   }
 
+  &__date {
+    span {
+      width: 80px;
+    }
+  }
+
+  &__time {
+    span {
+      width: fit-content;
+    }
+  }
+
   &__buttons {
     @include utils.flexLayout;
   }
 
   &__button {
-    padding: .25em .5em;
-    border: 2px solid transparent;
-    border-radius: .25em;
-    background-color: transparent;
-    color: utils.$light;
+    @include utils.buttonStyles;
     font-family: var(--primary-font-medium), sans-serif;
-    font-size: 1.8rem;
-    cursor: pointer;
 
     &--add {
       &:hover {
