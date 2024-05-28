@@ -69,6 +69,10 @@
       color: utils.$gold;
     }
   }
+
+  &.animation-in {
+    @include utils.notesPanelAnimation;
+  }
 }
 
 .notes__shadow {
@@ -82,5 +86,17 @@
 
   &.active {
     display: block;
+  }
+
+  &.animation-in {
+    @include utils.notesPanelAnimation;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
   }
 }
