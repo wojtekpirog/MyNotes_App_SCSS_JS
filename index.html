@@ -49,6 +49,13 @@
     <!-- Buttons -->
   </div>
   <!-- App menu -->
+  <!-- Search box -->
+  <div class="search-box">
+    <button type="button" class="search-box__button"><i class="fas fa-search"></i></button>
+    <input type="text" class="search-box__input" placeholder="Search" autocomplete="off">
+    <button type="button" class="search-box__button"><i class="fas fa-times"></i></button>
+  </div>
+  <!-- Search box -->
   <!-- Note area -->
   <div class="notes__container">
     <!-- Template -->
@@ -58,7 +65,7 @@
         <!-- Note header -->
         <div class="notes__header">
           <!-- Note title -->
-          <h3 class="notes__title">Notatka ze spotkania</h3>
+          <h3 class="notes__title"></h3>
           <!-- Note title -->
           <!-- Delete btn -->
           <button type="button" class="notes__delete-btn" title="Delete">
@@ -68,7 +75,8 @@
         </div>
         <!-- Note header -->
         <!-- Note body -->
-        <div class="notes__body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, veniam ex eum in maiores vitae!</div>
+        <div class="notes__category"></div>
+        <div class="notes__body"></div>
         <!-- Note body -->
       </div>
       <!-- Note -->
@@ -79,6 +87,10 @@
   <!-- Note panel -->
   <div class="notes__panel">
     <h2 class="notes__panel-title">Create note</h2>
+    <!-- Enter title -->
+    <label for="title" class="notes__panel-label">Enter your note's title: </label>
+    <input type="text" id="title" class="notes__panel-input" required>
+    <!-- Enter title -->
     <!-- Select category -->
     <label for="category" class="notes__panel-label">Select category</label>
     <select id="category" class="notes__panel-select">
@@ -90,7 +102,7 @@
     </select>
     <!-- Select category -->
     <!-- Note content -->
-    <label for="text" class="notes__panel-label">Enter your note's content</label>
+    <label for="text" class="notes__panel-label">Enter your note's content: </label>
     <textarea id="text" class="notes__panel-text"></textarea>
     <!-- Note content -->
     <!-- Error -->

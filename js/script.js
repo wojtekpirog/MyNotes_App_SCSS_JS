@@ -8,11 +8,10 @@ let deleteAllButton;
 let notesContainer;
 let notesPanel;
 let notesShadow;
+let notesInput;
 let notesSelect;
 let notesTextarea;
 let error;
-
-let selectedValue;
 
 // Każda notatka będzie miała własny, unikalny identyfikator
 let noteId = 0;
@@ -35,6 +34,7 @@ const prepareDOMElements = () => {
   notesContainer = document.querySelector(".notes__container");
   notesPanel = document.querySelector(".notes__panel");
   notesShadow = document.querySelector(".notes__shadow");
+  notesInput = document.querySelector(".notes__panel-input");
   notesSelect = document.querySelector(".notes__panel-select");
   notesTextarea = document.querySelector(".notes__panel-text");
   error = document.querySelector(".notes__panel-error");
@@ -71,17 +71,21 @@ const openPanel = () => {
 const closePanel = () => {
   notesPanel.classList.remove("active","animation-in");
   notesShadow.classList.remove("active", "animation-in");
-  notesSelect.selectedIndex = 0;
+  notesInput.value = "";
+  notesSelect.value = "default";
   notesTextarea.value = "";
   error.style.display = "none";
 }
 
 const addNote = () => {
-  if (notesSelect.value !== "default" && notesTextarea.value !== "") {
+  if (notesInput.value !== "" && notesSelect.value !== "default" && notesTextarea.value !== "") {
     error.style.display = "none";
     createNote();
+  } else if (notesInput.value === "") {
+    error.textContent = "Enter your note's title!";
+    error.style.display = "block";
   } else if (notesSelect.value === "default") {
-    error.textContent = "Select category!";
+    error.textContent = "Select your note's category!";
     error.style.display = "block";
   } else if (notesTextarea.value === "") {
     error.textContent = "Enter your note's content!";
@@ -90,22 +94,25 @@ const addNote = () => {
 }
 
 const createNote = () => {
-  selectedValue = notesSelect.options[notesSelect.selectedIndex].textContent;
+  const selectedValue = notesSelect.options[notesSelect.selectedIndex].textContent;
   const notesTemplate = document.querySelector(".notes__template").content.cloneNode(true);
 
-  const newNote = notesTemplate.querySelector(".notes__note");
-  newNote.setAttribute("id", `note-${noteId}`);
+  const note = notesTemplate.querySelector(".notes__note");
+  note.setAttribute("id", `note-${noteId}`);
   // Ustaw tytuł notatki:
-  const notesTitle = newNote.querySelector(".notes__title");
-  notesTitle.textContent = selectedValue;
+  const notesTitle = note.querySelector(".notes__title");
+  notesTitle.textContent = notesInput.value;
+  // Ustaw kategorię notatki:
+  const notesCategory = note.querySelector(".notes__category");
+  notesCategory.innerHTML = `<b>Category:</b> ${selectedValue}`;
   // Ustaw treść notatki:
-  const noteBody = newNote.querySelector(".notes__body");
-  noteBody.textContent = notesTextarea.value;
+  const notesBody = note.querySelector(".notes__body");
+  notesBody.innerHTML = `<b>Details:</b> ${notesTextarea.value}`;
   
-  const noteDeleteButton = newNote.querySelector(".notes__delete-btn");
+  const noteDeleteButton = note.querySelector(".notes__delete-btn");
   noteDeleteButton.setAttribute("onclick", `deleteNote(${noteId})`);
 
-  notesContainer.appendChild(newNote);
+  notesContainer.appendChild(note);
   noteId += 1;
   closePanel();
 }

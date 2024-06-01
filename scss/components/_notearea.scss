@@ -27,6 +27,11 @@
     font-size: 1.8rem;
   }
 
+  &__category {
+    padding-top: 1em;
+    font-size: 1.8rem;
+  }
+
   &__delete-btn {
     @include utils.buttonStyles;
     padding: 0;
