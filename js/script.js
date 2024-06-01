@@ -11,10 +11,15 @@ let notesShadow;
 let notesInput;
 let notesSelect;
 let notesTextarea;
+let searchInput;
+let searchCancelButton;
+
 let error;
 
-// Każda notatka będzie miała własny, unikalny identyfikator
+// Każda notatka będzie miała własny, unikalny identyfikator:
 let noteId = 0;
+// Pojemnik dla wyników wyszukiwania:
+let searchResults = [];
 
 const main = () => { 
   prepareDOMElements();
@@ -37,6 +42,8 @@ const prepareDOMElements = () => {
   notesInput = document.querySelector(".notes__panel-input");
   notesSelect = document.querySelector(".notes__panel-select");
   notesTextarea = document.querySelector(".notes__panel-text");
+  searchInput = document.querySelector(".search-box__input");
+  searchCancelButton = document.querySelector(".search-box__button--cancel");
   error = document.querySelector(".notes__panel-error");
 }
 
@@ -45,6 +52,8 @@ const prepareDOMEvents = () => {
   cancelButton.addEventListener("click", closePanel);
   saveButton.addEventListener("click", addNote);
   deleteAllButton.addEventListener("click", deleteAllNotes);
+  searchInput.addEventListener("input", searchNote);
+  searchCancelButton.addEventListener("click", cancelSearch);
   window.addEventListener("click", (event) => event.target === notesShadow ? closePanel() : false);
 }
 
@@ -115,6 +124,35 @@ const createNote = () => {
   notesContainer.appendChild(note);
   noteId += 1;
   closePanel();
+}
+
+const searchNote = () => {
+  console.log("Wyszukiwanie...");
+}
+
+const cancelSearch = () => {
+  const allNotes = document.querySelectorAll(".notes__note");
+  
+  allNotes.forEach((note) => {
+    note.style.display = "none";
+
+    const noteTitle = note.querySelector(".notes__title").textContent;
+    searchResults.push(noteTitle);
+  });
+  
+  filterResults(allNotes);
+  searchInput.value = "";
+}
+
+const filterResults = (allNotes) => {
+  searchResults = searchResults.filter((result) => result.toLowerCase().includes(searchInput.value.toLowerCase()));
+  
+  searchResults.forEach((result) => {
+    allNotes.forEach((note) => {
+      const noteTitle = note.querySelector(".notes__title").textContent.toLowerCase();
+      noteTitle === result.toLowerCase() ? note.style.display = "block" : false
+    });
+  });
 }
 
 const deleteNote = (noteId) => {

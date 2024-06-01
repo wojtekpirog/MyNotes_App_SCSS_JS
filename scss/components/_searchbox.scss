@@ -1,10 +1,12 @@
 @use "../utilities" as utils;
 
 .search-box {
-  @include utils.flexLayout;
-  gap: 0;
-  padding: 1em;
-  background-color: utils.$dark;
+  &__form {
+    @include utils.flexLayout;
+    gap: 0;
+    padding: 1em;
+    background-color: utils.$dark;
+  }
 
   &__input {
     @include utils.inputStyles;

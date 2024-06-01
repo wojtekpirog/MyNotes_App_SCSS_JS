@@ -51,9 +51,13 @@
   <!-- App menu -->
   <!-- Search box -->
   <div class="search-box">
-    <button type="button" class="search-box__button" title="Search"><i class="fas fa-search"></i></button>
-    <input type="text" class="search-box__input" placeholder="Search" autocomplete="off">
-    <button type="button" class="search-box__button" title="Close"><i class="fas fa-times"></i></button>
+    <!-- Form -->
+    <form class="search-box__form" method="get">
+      <button type="button" class="search-box__button" title="Search"><i class="fas fa-search"></i></button>
+      <input type="text" name="query" class="search-box__input" placeholder="Search" autocomplete="off">
+      <button type="reset" class="search-box__button search-box__button--cancel" title="Cancel"><i class="fas fa-times"></i></button>
+    </form>
+    <!-- Form -->
   </div>
   <!-- Search box -->
   <!-- Note area -->

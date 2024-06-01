@@ -116,7 +116,7 @@ body {
   border: 2px solid #fbbc04;
 }
 
-.search-box {
+.search-box__form {
   display: flex;
   justify-content: center;
   align-items: center;
