@@ -1,0 +1,41 @@
+@use "../utilities" as utils;
+
+.search-box {
+  @include utils.flexLayout;
+  gap: 0;
+  padding: 1em;
+  background-color: utils.$dark;
+
+  &__input {
+    @include utils.inputStyles;
+    max-width: 500px;
+    border-color: utils.$darkgray;
+    border-radius: 0;
+
+    &:focus {
+      outline: none;
+      border-color: utils.$gold;
+    }
+  }
+
+  &__button {
+    @include utils.buttonStyles;
+    padding: .75em;
+    border: 2px solid utils.$darkgray;
+
+    &:first-child {
+      border-right: none;
+      border-radius: 0.25em 0 0 0.25em;
+    }
+
+    &:last-child {
+      border-left: none;
+      border-radius: 0 .25em .25em 0;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: utils.$gold;
+    }
+  }
+}

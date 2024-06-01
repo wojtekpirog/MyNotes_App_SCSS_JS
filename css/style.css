@@ -96,7 +96,7 @@ body {
   padding: 0.5em;
   border: 2px solid transparent;
   border-radius: 0.25em;
-  background-color: transparent;
+  background-color: inherit;
   color: #eee;
   font-size: 1.8rem;
   cursor: pointer;
@@ -114,6 +114,56 @@ body {
 .menu__button:focus {
   outline: none;
   border: 2px solid #fbbc04;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  gap: 0;
+  padding: 1em;
+  background-color: #202124;
+}
+.search-box__input {
+  width: 90%;
+  padding: 0.75em;
+  border: 2px solid #eee;
+  border-radius: 0.25em;
+  background-color: inherit;
+  color: #eee;
+  font-size: 1.8rem;
+  font-family: var(--primary-font-medium);
+  max-width: 500px;
+  border-color: #5f6368;
+  border-radius: 0;
+}
+.search-box__input:focus {
+  outline: none;
+  border-color: #fbbc04;
+}
+.search-box__button {
+  padding: 0.5em;
+  border: 2px solid transparent;
+  border-radius: 0.25em;
+  background-color: inherit;
+  color: #eee;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0.75em;
+  border: 2px solid #5f6368;
+}
+.search-box__button:first-child {
+  border-right: none;
+  border-radius: 0.25em 0 0 0.25em;
+}
+.search-box__button:last-child {
+  border-left: none;
+  border-radius: 0 0.25em 0.25em 0;
+}
+.search-box__button:focus {
+  outline: none;
+  border-color: #fbbc04;
 }
 
 .notes__container {
@@ -146,7 +196,7 @@ body {
   padding: 0.5em;
   border: 2px solid transparent;
   border-radius: 0.25em;
-  background-color: transparent;
+  background-color: inherit;
   color: #eee;
   font-size: 1.8rem;
   cursor: pointer;
@@ -167,8 +217,8 @@ body {
   justify-content: center;
   align-items: center;
   gap: 0.5em;
-  display: none;
   flex-direction: column;
+  display: none;
   width: 90%;
   max-width: 500px;
   position: absolute;
@@ -194,14 +244,14 @@ body {
 }
 .notes__panel-input, .notes__panel-select, .notes__panel-text {
   width: 90%;
-  margin-bottom: 1em;
   padding: 0.75em;
-  background-color: inherit;
-  color: #eee;
   border: 2px solid #eee;
   border-radius: 0.25em;
+  background-color: inherit;
+  color: #eee;
+  font-size: 1.8rem;
   font-family: var(--primary-font-medium);
-  font-size: 1.6rem;
+  margin-bottom: 1em;
 }
 .notes__panel-input:focus, .notes__panel-select:focus, .notes__panel-text:focus {
   outline: none;
@@ -222,7 +272,7 @@ body {
   padding: 0.5em;
   border: 2px solid transparent;
   border-radius: 0.25em;
-  background-color: transparent;
+  background-color: inherit;
   color: #eee;
   font-size: 1.8rem;
   cursor: pointer;
