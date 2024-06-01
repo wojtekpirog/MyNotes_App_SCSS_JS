@@ -5,7 +5,6 @@ let addNoteButton;
 let saveButton;
 let cancelButton;
 let deleteAllButton;
-let deleteNoteButton;
 let notesContainer;
 let notesPanel;
 let notesShadow;
@@ -33,7 +32,6 @@ const prepareDOMElements = () => {
   saveButton = document.querySelector(".notes__panel-button--save");
   cancelButton = document.querySelector(".notes__panel-button--cancel");
   deleteAllButton = document.querySelector(".menu__button--delete");
-  deleteNoteButton = document.querySelector(".notes__delete-btn");
   notesContainer = document.querySelector(".notes__container");
   notesPanel = document.querySelector(".notes__panel");
   notesShadow = document.querySelector(".notes__shadow");
@@ -45,6 +43,8 @@ const prepareDOMElements = () => {
 const prepareDOMEvents = () => {
   addNoteButton.addEventListener("click", openPanel);
   cancelButton.addEventListener("click", closePanel);
+  saveButton.addEventListener("click", addNote);
+  deleteAllButton.addEventListener("click", deleteAllNotes);
   window.addEventListener("click", (event) => event.target === notesShadow ? closePanel() : false);
 }
 
@@ -74,6 +74,50 @@ const closePanel = () => {
   notesSelect.selectedIndex = 0;
   notesTextarea.value = "";
   error.style.display = "none";
+}
+
+const addNote = () => {
+  if (notesSelect.value !== "default" && notesTextarea.value !== "") {
+    error.style.display = "none";
+    createNote();
+  } else if (notesSelect.value === "default") {
+    error.textContent = "Select category!";
+    error.style.display = "block";
+  } else if (notesTextarea.value === "") {
+    error.textContent = "Enter your note's content!";
+    error.style.display = "block";
+  }
+}
+
+const createNote = () => {
+  selectedValue = notesSelect.options[notesSelect.selectedIndex].textContent;
+  const notesTemplate = document.querySelector(".notes__template").content.cloneNode(true);
+
+  const newNote = notesTemplate.querySelector(".notes__note");
+  newNote.setAttribute("id", `note-${noteId}`);
+  // Ustaw tytuł notatki:
+  const notesTitle = newNote.querySelector(".notes__title");
+  notesTitle.textContent = selectedValue;
+  // Ustaw treść notatki:
+  const noteBody = newNote.querySelector(".notes__body");
+  noteBody.textContent = notesTextarea.value;
+  
+  const noteDeleteButton = newNote.querySelector(".notes__delete-btn");
+  noteDeleteButton.setAttribute("onclick", `deleteNote(${noteId})`);
+
+  notesContainer.appendChild(newNote);
+  noteId += 1;
+  closePanel();
+}
+
+const deleteNote = (noteId) => {
+  const noteToDelete = document.getElementById(`note-${noteId}`);
+  notesContainer.removeChild(noteToDelete);
+}
+
+const deleteAllNotes = () => {
+  const notes = document.querySelectorAll(".notes__note");
+  notes.forEach((note) => notesContainer.removeChild(note));
 }
 
 document.addEventListener("DOMContentLoaded", main);

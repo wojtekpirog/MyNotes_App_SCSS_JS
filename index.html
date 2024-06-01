@@ -22,13 +22,13 @@
       <!-- Date -->
       <div class="menu__date">
         <i class="fa-regular fa-clock"></i>
-        <span>12:00</span>
+        <span></span>
       </div>
       <!-- Date -->
       <!-- Time -->
       <div class="menu__time">
         <i class="fa-regular fa-calendar"></i>
-        <span>September 25, 2022</span>
+        <span></span>
       </div>
       <!-- Time -->
     </div>
@@ -51,25 +51,29 @@
   <!-- App menu -->
   <!-- Note area -->
   <div class="notes__container">
-    <!-- Note -->
-    <div class="notes__note">
-      <!-- Note header -->
-      <div class="notes__header">
-        <!-- Note title -->
-        <h3 class="notes__title">Notatka ze spotkania</h3>
-        <!-- Note title -->
-        <!-- Delete btn -->
-        <button type="button" class="notes__delete-btn" title="Delete">
-          <i class="fas fa-trash-alt"></i>
-        </button>
-        <!-- Delete btn -->
+    <!-- Template -->
+    <template class="notes__template">
+      <!-- Note -->
+      <div class="notes__note">
+        <!-- Note header -->
+        <div class="notes__header">
+          <!-- Note title -->
+          <h3 class="notes__title">Notatka ze spotkania</h3>
+          <!-- Note title -->
+          <!-- Delete btn -->
+          <button type="button" class="notes__delete-btn" title="Delete">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+          <!-- Delete btn -->
+        </div>
+        <!-- Note header -->
+        <!-- Note body -->
+        <div class="notes__body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, veniam ex eum in maiores vitae!</div>
+        <!-- Note body -->
       </div>
-      <!-- Note header -->
-      <!-- Note body -->
-      <div class="notes__body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, veniam ex eum in maiores vitae!</div>
-      <!-- Note body -->
-    </div>
-    <!-- Note -->
+      <!-- Note -->
+    </template>
+    <!-- Template -->
   </div>
   <!-- Note area -->
   <!-- Note panel -->
@@ -79,10 +83,10 @@
     <label for="category" class="notes__panel-label">Select category</label>
     <select id="category" class="notes__panel-select">
       <option value="default" disabled selected> - select category - </option>
-      <option value="shopping">Shopping</option>
-      <option value="work">Work</option>
-      <option value="house">House</option>
-      <option value="other">Other</option>
+      <option value="shopping">Zakupy</option>
+      <option value="work">Praca</option>
+      <option value="house">Dom</option>
+      <option value="other">Inne</option>
     </select>
     <!-- Select category -->
     <!-- Note content -->
@@ -103,6 +107,19 @@
   <!-- Note shadow -->
   <div class="notes__shadow"></div>
   <!-- Note shadow -->
+  <!-- Note template -->
+  <!-- <template class="notes__template">
+    <div class="notes__note">
+      <div class="notes__header">
+        <h3 class="notes__title">Notatka ze spotkania</h3>
+        <button type="button" class="notes__delete-btn" title="Delete">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+      <div class="notes__body">Jakieś bzdury...</div>
+    </div>
+  </template> -->
+  <!-- Note template -->
   <script src="./js/script.js"></script>
 </body>
 </html>
