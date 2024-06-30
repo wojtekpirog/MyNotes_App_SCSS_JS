@@ -1,19 +1,28 @@
-let currentYear;
+// Footer year
+let footerYear;
+// time box
 let hourSpan;
 let dateSpan;
+// Add note button
 let addNoteButton;
+// Add note panel buttons
 let saveButton;
 let cancelButton;
+// Delete all notes button
 let deleteAllButton;
+// Container for notes
 let notesContainer;
+// Notes panel
 let notesPanel;
 let notesShadow;
 let notesInput;
 let notesSelect;
 let notesTextarea;
+// Search box
 let searchInput;
+let searchButton;
 let searchCancelButton;
-
+// Error
 let error;
 
 // Każda notatka będzie miała własny, unikalny identyfikator:
@@ -24,12 +33,13 @@ let searchResults = [];
 const main = () => { 
   prepareDOMElements();
   prepareDOMEvents();
+  setFooterYear();
   setDateAndTime();
   updateDateAndTime();
 }
 
 const prepareDOMElements = () => {
-  currentYear = document.querySelector("span.year");
+  footerYear = document.querySelector(".footer__year");
   hourSpan = document.querySelector(".menu__date > span");
   dateSpan = document.querySelector(".menu__time > span");
   addNoteButton = document.querySelector(".menu__button--add");
@@ -43,6 +53,7 @@ const prepareDOMElements = () => {
   notesSelect = document.querySelector(".notes__panel-select");
   notesTextarea = document.querySelector(".notes__panel-text");
   searchInput = document.querySelector(".search-box__input");
+  searchButton = document.querySelector(".search-box__button");
   searchCancelButton = document.querySelector(".search-box__button--cancel");
   error = document.querySelector(".notes__panel-error");
 }
@@ -52,22 +63,28 @@ const prepareDOMEvents = () => {
   cancelButton.addEventListener("click", closePanel);
   saveButton.addEventListener("click", addNote);
   deleteAllButton.addEventListener("click", deleteAllNotes);
-  searchInput.addEventListener("input", searchNote);
-  searchCancelButton.addEventListener("click", cancelSearch);
-  window.addEventListener("click", (event) => event.target === notesShadow ? closePanel() : false);
+  // searchInput.addEventListener("input", searchNotes);
+  searchButton.addEventListener("click", searchForNotes);
+  searchCancelButton.addEventListener("click", cancelSearching);
+  // window.addEventListener("click", (event) => event.target === notesShadow ? closePanel() : false);
+}
+
+const setFooterYear = () => {
+  const now = new Date();
+  footerYear.textContent = now.getFullYear();
 }
 
 const setDateAndTime = () => {
   const now = new Date();
-  
-  const formattingOptions = {
+
+  const formatOptions = {
     day: "numeric",
     month: "long",
-    year: "numeric"
+    year: "numeric",
   };
-  
+
   hourSpan.textContent = now.toLocaleTimeString();
-  dateSpan.textContent = now.toLocaleDateString("en-US", formattingOptions);
+  dateSpan.textContent = now.toLocaleDateString("en-US", formatOptions);
 }
 
 const updateDateAndTime = () => setInterval(setDateAndTime, 1000);
@@ -78,8 +95,9 @@ const openPanel = () => {
 }
 
 const closePanel = () => {
-  notesPanel.classList.remove("active","animation-in");
+  notesPanel.classList.remove("active", "animation-in");
   notesShadow.classList.remove("active", "animation-in");
+
   notesInput.value = "";
   notesSelect.value = "default";
   notesTextarea.value = "";
@@ -88,49 +106,51 @@ const closePanel = () => {
 
 const addNote = () => {
   if (notesInput.value !== "" && notesSelect.value !== "default" && notesTextarea.value !== "") {
-    error.style.display = "none";
+    clearError();
     createNote();
   } else if (notesInput.value === "") {
-    error.textContent = "Enter your note's title!";
-    error.style.display = "block";
+    displayError("Enter your note's title!");
   } else if (notesSelect.value === "default") {
-    error.textContent = "Select your note's category!";
-    error.style.display = "block";
+    displayError("Select your note's category!");
   } else if (notesTextarea.value === "") {
-    error.textContent = "Enter your note's content!";
-    error.style.display = "block";
+    displayError("Enter your note's content!");
   }
 }
 
 const createNote = () => {
-  const selectedValue = notesSelect.options[notesSelect.selectedIndex].textContent;
+  const selectedValue = notesSelect.options[notesSelect.selectedIndex];
   const notesTemplate = document.querySelector(".notes__template").content.cloneNode(true);
 
   const note = notesTemplate.querySelector(".notes__note");
+  // Ustaw ID notatki:
   note.setAttribute("id", `note-${noteId}`);
   // Ustaw tytuł notatki:
-  const notesTitle = note.querySelector(".notes__title");
-  notesTitle.textContent = notesInput.value;
+  note.querySelector(".notes__title").textContent = notesInput.value;
   // Ustaw kategorię notatki:
-  const notesCategory = note.querySelector(".notes__category");
-  notesCategory.innerHTML = `<b>Category:</b> ${selectedValue}`;
+  note.querySelector(".notes__category").innerHTML = `<b>Category:</b> ${selectedValue.textContent}`;
   // Ustaw treść notatki:
-  const notesBody = note.querySelector(".notes__body");
-  notesBody.innerHTML = `<b>Details:</b> ${notesTextarea.value}`;
-  
-  const noteDeleteButton = note.querySelector(".notes__delete-btn");
-  noteDeleteButton.setAttribute("onclick", `deleteNote(${noteId})`);
-
+  note.querySelector(".notes__body").innerHTML = `<b>Details:</b> ${notesTextarea.value}`;
+  // Ustaw atrybut "onclick" dla przycisku usuwania notatki:
+  note.querySelector(".notes__delete-btn").setAttribute("onclick", `deleteNote(${noteId})`);
+  // Dodaj notatke do listy notatek:
   notesContainer.appendChild(note);
+
   noteId += 1;
+  searchResults.push(notesInput.value);
   closePanel();
 }
 
-const searchNote = () => {
-  console.log("Wyszukiwanie...");
+const displayError = (message) => {
+  error.textContent = message;
+  error.style.display = "block";
 }
 
-const cancelSearch = () => {
+const clearError = () => {
+  error.textContent = "";
+  error.style.display = "none";
+}
+
+const searchForNotes = () => {
   const allNotes = document.querySelectorAll(".notes__note");
   
   allNotes.forEach((note) => {
@@ -149,20 +169,29 @@ const filterResults = (allNotes) => {
   
   searchResults.forEach((result) => {
     allNotes.forEach((note) => {
-      const noteTitle = note.querySelector(".notes__title").textContent.toLowerCase();
-      noteTitle === result.toLowerCase() ? note.style.display = "block" : false
+      const noteTitle = note.querySelector(".notes__title").textContent;
+      noteTitle.toLowerCase() === result.toLowerCase() ? note.style.display = "block" : false
     });
   });
 }
 
+const cancelSearching = () => {
+  searchInput.value = "";
+
+  const allNotes = document.querySelectorAll(".notes__note");
+  allNotes.forEach((note) => note.style.display = "block");
+
+  searchResults = [];
+}
+
 const deleteNote = (noteId) => {
-  const noteToDelete = document.getElementById(`note-${noteId}`);
-  notesContainer.removeChild(noteToDelete);
+  const noteToRemove = document.getElementById(`note-${noteId}`);
+  notesContainer.removeChild(noteToRemove);
 }
 
 const deleteAllNotes = () => {
-  const notes = document.querySelectorAll(".notes__note");
-  notes.forEach((note) => notesContainer.removeChild(note));
+  const allNotes = notesContainer.querySelectorAll(".notes__note");
+  allNotes.forEach((note) => notesContainer.removeChild(note));
 }
 
 document.addEventListener("DOMContentLoaded", main);

@@ -13,6 +13,10 @@
     border: 2px solid utils.$light;
     border-radius: .5em;
     padding: 1em;
+
+    &.hidden {
+      display: none;
+    }
   }
 
   &__header {
