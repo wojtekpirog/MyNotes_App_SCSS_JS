@@ -25,14 +25,12 @@ let cancelButton;
 // Search box
 let searchInput;
 let searchButton;
-let searchCancelButton;
+let clearSearchBarBtn;
 // Error
 let error;
 
 // Każda notatka będzie miała własny, unikalny identyfikator:
 let noteId = 0;
-// Pojemnik dla wyników wyszukiwania:
-let searchResults = [];
 
 const main = () => { 
   prepareDOMElements();
@@ -61,7 +59,7 @@ const prepareDOMElements = () => {
   notesTextarea = document.querySelector(".notes__panel-text");
   searchInput = document.querySelector(".search-box__input");
   searchButton = document.querySelector(".search-box__button");
-  searchCancelButton = document.querySelector(".search-box__button--cancel");
+  clearSearchBarBtn = document.querySelector(".search-box__button--clear");
   error = document.querySelector(".notes__panel-error");
 }
 
@@ -72,9 +70,10 @@ const prepareDOMEvents = () => {
   deleteAllButton.addEventListener("click", openConfirmPopup);
   confirmDeletionBtn.addEventListener("click", deleteAllNotes);
   cancelDeletionBtn.addEventListener("click", closeConfirmPopup);
-  // searchInput.addEventListener("input", searchNotes);
+  // Input
+  searchInput.addEventListener("keyup", searchForNotes);
   searchButton.addEventListener("click", searchForNotes);
-  searchCancelButton.addEventListener("click", cancelSearching);
+  clearSearchBarBtn.addEventListener("click", clearSearchBar);
   // window.addEventListener("click", (event) => event.target === notesShadow ? closePanel() : false);
 }
 
@@ -145,7 +144,6 @@ const createNote = () => {
   notesContainer.appendChild(note);
 
   noteId += 1;
-  searchResults.push(notesInput.value);
   closePanel();
 }
 
@@ -159,38 +157,25 @@ const clearError = () => {
   error.style.display = "none";
 }
 
-const searchForNotes = () => {
+const searchForNotes = (event) => {
   const allNotes = document.querySelectorAll(".notes__note");
-  
+  const searchText = event.target.value.toLowerCase();
+
   allNotes.forEach((note) => {
-    note.style.display = "none";
-
-    const noteTitle = note.querySelector(".notes__title").textContent;
-    searchResults.push(noteTitle);
-  });
-  
-  filterResults(allNotes);
-  searchInput.value = "";
-}
-
-const filterResults = (allNotes) => {
-  searchResults = searchResults.filter((result) => result.toLowerCase().includes(searchInput.value.toLowerCase()));
-  
-  searchResults.forEach((result) => {
-    allNotes.forEach((note) => {
-      const noteTitle = note.querySelector(".notes__title").textContent;
-      noteTitle.toLowerCase() === result.toLowerCase() ? note.style.display = "block" : false
-    });
+    const notesTitle = note.querySelector(".notes__title").textContent.toLowerCase();
+    
+    if (notesTitle.indexOf(searchText) !== -1) {
+      note.style.display = "block";
+    } else {
+      note.style.display = "none";
+    }
   });
 }
 
-const cancelSearching = () => {
-  searchInput.value = "";
-
+const clearSearchBar = () => {
   const allNotes = document.querySelectorAll(".notes__note");
   allNotes.forEach((note) => note.style.display = "block");
-
-  searchResults = [];
+  searchInput.value = "";
 }
 
 const deleteNote = (noteId) => {
@@ -211,8 +196,6 @@ const closeConfirmPopup = () => {
 const deleteAllNotes = () => {
   const allNotes = notesContainer.querySelectorAll(".notes__note");
   allNotes.forEach((note) => notesContainer.removeChild(note));
-  
-  searchResults.length = 0;
   closeConfirmPopup();
 }
 
