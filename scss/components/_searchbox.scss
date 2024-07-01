@@ -6,6 +6,13 @@
     gap: 0;
     padding: 1em;
     background-color: utils.$dark;
+
+    &-icon {
+      padding: 1em;
+      border: none;
+      border-radius: .25em 0 0 .25em;
+      background-color: utils.$gold;
+    }
   }
 
   &__input {
@@ -16,7 +23,6 @@
 
     &:focus {
       outline: none;
-      border-color: utils.$gold;
     }
   }
 
@@ -25,19 +31,17 @@
     padding: .75em;
     border: 2px solid utils.$darkgray;
 
-    &:first-child {
-      border-right: none;
-      border-radius: 0.25em 0 0 0.25em;
-    }
-
-    &:last-child {
+    &--clear {
       border-left: none;
       border-radius: 0 .25em .25em 0;
-    }
 
-    &:focus {
-      outline: none;
-      border-color: utils.$gold;
+      &:hover {
+        background-color: utils.$darker;
+      }
+      &:focus {
+        outline: none;
+        background-color: utils.$darker;
+      }
     }
   }
 }

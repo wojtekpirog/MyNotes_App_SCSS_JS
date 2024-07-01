@@ -173,9 +173,13 @@ const searchForNotes = (event) => {
 }
 
 const clearSearchBar = () => {
-  const allNotes = document.querySelectorAll(".notes__note");
-  allNotes.forEach((note) => note.style.display = "block");
-  searchInput.value = "";
+  if (searchInput.value !== "") {
+    const allNotes = document.querySelectorAll(".notes__note");
+    allNotes.forEach((note) => note.style.display = "block");
+    searchInput.value = "";
+  } else {
+    return false;
+  }
 }
 
 const deleteNote = (noteId) => {
