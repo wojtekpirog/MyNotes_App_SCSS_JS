@@ -161,9 +161,32 @@ body {
 .search-box__button--clear {
   border-left: none;
   border-radius: 0 0.25em 0.25em 0;
+  position: relative;
+  transition: background-color 200ms ease-in-out;
+}
+.search-box__button--clear::before, .search-box__button--clear::after {
+  --scale: 0;
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(0) scale(var(--scale));
+  transition: transform 200ms ease-in-out;
+}
+.search-box__button--clear::before {
+  content: attr(data-tooltip);
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.5em;
+  background-color: #5f6368;
+  font-size: 1.4rem;
+  border-radius: 4px;
 }
 .search-box__button--clear:hover {
   background-color: #141516;
+}
+.search-box__button--clear:hover::before {
+  --scale: 1;
+  transform: translateX(-50%) translateY(50%) scale(var(--scale));
 }
 .search-box__button--clear:focus {
   outline: none;

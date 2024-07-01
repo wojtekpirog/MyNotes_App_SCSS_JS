@@ -34,10 +34,38 @@
     &--clear {
       border-left: none;
       border-radius: 0 .25em .25em 0;
+      position: relative;
+      transition: background-color 200ms ease-in-out;
+
+      &::before, &::after {
+        --scale: 0;        
+
+        position: absolute;
+        bottom: -50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(0) scale(var(--scale));
+        transition: transform 200ms ease-in-out;
+      }
+      
+      &::before {
+        content: attr(data-tooltip);
+        width: max-content;
+        padding: .5em;
+        background-color: utils.$darkgray;
+        font-size: 1.4rem;
+        border-radius: 4px;
+      }
 
       &:hover {
         background-color: utils.$darker;
+
+        &::before {
+          --scale: 1;
+
+          transform: translateX(-50%) translateY(50%) scale(var(--scale));
+        }
       }
+
       &:focus {
         outline: none;
         background-color: utils.$darker;
