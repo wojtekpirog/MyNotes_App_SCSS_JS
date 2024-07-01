@@ -2,23 +2,11 @@
 
 .notes__panel {
   @include utils.flexLayout;
-  flex-direction: column;
-  display: none;
+  @include utils.popupStyles;
   width: 90%;
   max-width: 500px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 1em;
-  background-color: utils.$dark;
-  border: 2px solid utils.$light;
-  border-radius: .5em;
+  display: none;
   z-index: 1;
-
-  &.active {
-    display: flex;
-  }
 
   &-title {
     margin-bottom: .5em;
@@ -62,6 +50,10 @@
     &:hover {
       color: utils.$gold;
     }
+  }
+
+  &.active {
+    display: flex;
   }
 
   &.animation-in {

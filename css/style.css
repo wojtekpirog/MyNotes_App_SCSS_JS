@@ -221,9 +221,6 @@ body {
   align-items: center;
   gap: 0.5em;
   flex-direction: column;
-  display: none;
-  width: 90%;
-  max-width: 500px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -232,10 +229,10 @@ body {
   background-color: #202124;
   border: 2px solid #eee;
   border-radius: 0.5em;
+  width: 90%;
+  max-width: 500px;
+  display: none;
   z-index: 1;
-}
-.notes__panel.active {
-  display: flex;
 }
 .notes__panel-title {
   margin-bottom: 0.5em;
@@ -284,6 +281,9 @@ body {
 .notes__panel-button:hover {
   color: #fbbc04;
 }
+.notes__panel.active {
+  display: flex;
+}
 .notes__panel.animation-in {
   animation-name: fade-in;
   animation-duration: 300ms;
@@ -316,6 +316,65 @@ body {
     opacity: 1;
   }
 }
+.deletion-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1em;
+  background-color: #202124;
+  border: 2px solid #eee;
+  border-radius: 0.5em;
+  width: 90%;
+  max-width: 800px;
+  border-color: #c62828;
+  gap: 1em;
+  display: none;
+}
+.deletion-modal__title {
+  font-size: 2rem;
+  text-align: center;
+}
+.deletion-modal__button {
+  padding: 0.5em;
+  border: 2px solid transparent;
+  border-radius: 0.25em;
+  background-color: inherit;
+  color: #eee;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+.deletion-modal__button:first-child {
+  margin-right: 1em;
+}
+.deletion-modal__button:first-child:hover {
+  color: #fbbc04;
+}
+.deletion-modal__button:last-child {
+  margin-left: 1em;
+  color: #c62828;
+}
+.deletion-modal__button:last-child:hover {
+  color: #7c1818;
+}
+.deletion-modal__button:last-child:focus {
+  outline: none;
+  border-color: #c62828;
+}
+.deletion-modal.active {
+  display: flex;
+}
+.deletion-modal.animation-in {
+  animation-name: fade-in;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in-out;
+}
+
 .footer {
   width: 100%;
   height: 5em;

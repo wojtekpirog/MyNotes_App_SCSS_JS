@@ -33,3 +33,15 @@
   animation-duration: 300ms;
   animation-timing-function: ease-in-out;
 }
+
+@mixin popupStyles {
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1em;
+  background-color: colors.$dark;
+  border: 2px solid colors.$light;
+  border-radius: .5em;
+}

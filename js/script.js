@@ -5,11 +5,12 @@ let hourSpan;
 let dateSpan;
 // Add note button
 let addNoteButton;
-// Add note panel buttons
-let saveButton;
-let cancelButton;
 // Delete all notes button
 let deleteAllButton;
+// Popup with warning
+let deletionConfirmationPopup;
+let confirmDeletionBtn;
+let cancelDeletionBtn;
 // Container for notes
 let notesContainer;
 // Notes panel
@@ -18,6 +19,9 @@ let notesShadow;
 let notesInput;
 let notesSelect;
 let notesTextarea;
+// Note panel buttons
+let saveButton;
+let cancelButton;
 // Search box
 let searchInput;
 let searchButton;
@@ -46,6 +50,9 @@ const prepareDOMElements = () => {
   saveButton = document.querySelector(".notes__panel-button--save");
   cancelButton = document.querySelector(".notes__panel-button--cancel");
   deleteAllButton = document.querySelector(".menu__button--delete");
+  deletionConfirmationPopup = document.querySelector(".deletion-modal");
+  confirmDeletionBtn = document.querySelector(".deletion-modal__button--delete");
+  cancelDeletionBtn = document.querySelector(".deletion-modal__button--cancel");
   notesContainer = document.querySelector(".notes__container");
   notesPanel = document.querySelector(".notes__panel");
   notesShadow = document.querySelector(".notes__shadow");
@@ -62,7 +69,9 @@ const prepareDOMEvents = () => {
   addNoteButton.addEventListener("click", openPanel);
   cancelButton.addEventListener("click", closePanel);
   saveButton.addEventListener("click", addNote);
-  deleteAllButton.addEventListener("click", deleteAllNotes);
+  deleteAllButton.addEventListener("click", openConfirmPopup);
+  confirmDeletionBtn.addEventListener("click", deleteAllNotes);
+  cancelDeletionBtn.addEventListener("click", closeConfirmPopup);
   // searchInput.addEventListener("input", searchNotes);
   searchButton.addEventListener("click", searchForNotes);
   searchCancelButton.addEventListener("click", cancelSearching);
@@ -189,9 +198,22 @@ const deleteNote = (noteId) => {
   notesContainer.removeChild(noteToRemove);
 }
 
+const openConfirmPopup = () => {
+  deletionConfirmationPopup.classList.add("active", "animation-in");
+  notesShadow.classList.add("active", "animation-in");
+}
+
+const closeConfirmPopup = () => {
+  deletionConfirmationPopup.classList.remove("active", "animation-in");
+  notesShadow.classList.remove("active", "animation-in");
+}
+
 const deleteAllNotes = () => {
   const allNotes = notesContainer.querySelectorAll(".notes__note");
   allNotes.forEach((note) => notesContainer.removeChild(note));
+  
+  searchResults.length = 0;
+  closeConfirmPopup();
 }
 
 document.addEventListener("DOMContentLoaded", main);

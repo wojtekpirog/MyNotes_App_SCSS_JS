@@ -1,0 +1,50 @@
+@use "../utilities/" as utils;
+
+.deletion-modal {
+  @include utils.flexLayout;
+  @include utils.popupStyles;
+  width: 90%;
+  max-width: 800px;
+  border-color: utils.$danger;
+  gap: 1em;
+  display: none;
+
+  &__title {
+    font-size: 2rem;
+    text-align: center;
+  }
+  
+  &__button {
+    @include utils.buttonStyles;
+
+    &:first-child {
+      margin-right: 1em;
+
+      &:hover {
+        color: utils.$gold;
+      }
+    }
+
+    &:last-child {
+      margin-left: 1em;
+      color: utils.$danger;
+
+      &:hover {
+        color: utils.$danger-dark;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: utils.$danger;
+      }
+    }
+  }
+
+  &.active {
+    display: flex;
+  }
+
+  &.animation-in {
+    @include utils.notesPanelAnimation;
+  }
+}
