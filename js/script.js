@@ -71,11 +71,10 @@ const prepareDOMEvents = () => {
   deleteAllButton.addEventListener("click", openConfirmPopup);
   confirmDeletionBtn.addEventListener("click", deleteAllNotes);
   cancelDeletionBtn.addEventListener("click", closeConfirmPopup);
-  // Input
   searchInput.addEventListener("keyup", searchForNotes);
   searchButton.addEventListener("click", searchForNotes);
   clearSearchBarBtn.addEventListener("click", clearSearchBar);
-  // window.addEventListener("click", (event) => event.target === notesShadow ? closePanel() : false);
+  window.addEventListener("click", (event) => event.target === notesShadow && closePanel());
 }
 
 const setFooterYear = () => {
@@ -139,7 +138,9 @@ const createNote = () => {
   // Ustaw kategorię notatki:
   note.querySelector(".notes__category").innerHTML = `<b>Category:</b> ${selectedValue}`;
   // Ustaw treść notatki:
-  note.querySelector(".notes__body").innerHTML = `<b>Details:</b> ${notesTextarea.value}`;
+  note.querySelector(".notes__body").innerHTML = `<b>Body:</b> ${notesTextarea.value}`;
+  // Ustaw atrybut "onclick" dla przycisku do edytowania notatki:
+  note.querySelector(".notes__edit-btn").setAttribute("onclick", `openEditionPanel(${noteId})`);
   // Ustaw atrybut "onclick" dla przycisku usuwania notatki:
   note.querySelector(".notes__delete-btn").setAttribute("onclick", `deleteNote(${noteId})`);
   // Dodaj notatke do listy notatek:
@@ -207,6 +208,26 @@ const clearSearchBar = () => {
 const deleteNote = (noteId) => {
   const noteToRemove = document.getElementById(`note-${noteId}`);
   notesContainer.removeChild(noteToRemove);
+}
+
+const openEditionPanel = (noteId) => {
+  notesPanel.classList.add("active", "animation-in");
+  notesShadow.classList.add("active", "animation-in");
+
+  const saveChangesBtn = document.querySelector(".notes__panel-button--save");
+  const cancelChangesBtn = document.querySelector(".notes__panel-button--cancel");
+
+  const noteToEdit = document.getElementById(`note-${noteId}`);
+  notesInput.value = noteToEdit.querySelector(".notes__title").textContent.slice(1);
+  notesSelect.value = noteToEdit.querySelector(".notes__category").textContent.slice(10).toLowerCase();
+  notesTextarea.value = noteToEdit.querySelector(".notes__body").textContent.slice(9);
+
+  saveChangesBtn.addEventListener("click", () => editNote(noteId));
+  cancelChangesBtn.addEventListener("click", closePanel());
+}
+
+const editNote = (noteId) => {
+  console.log(`Notatka o ID ${noteId} została zmieniona.`);
 }
 
 const openConfirmPopup = () => {
