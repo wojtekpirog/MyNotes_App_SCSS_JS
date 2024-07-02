@@ -1,4 +1,12 @@
 @media screen and (min-width: 576px) {
+  .menu {
+    &__date, &__time {
+      span {
+        font-size: 2rem;
+      }
+    }
+  }
+
   .notes {
     &__container {
       flex-direction: row;

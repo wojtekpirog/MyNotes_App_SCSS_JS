@@ -2,20 +2,26 @@
 
 .menu {
   @include utils.flexLayout;
+  flex-direction: column;
   justify-content: space-between;
   padding: 1em;
   background-color: utils.$dark;
 
   &__logo {
+    font-size: 4rem;
+    
     .fa-sticky-note {
       color: utils.$gold;
-      font-size: 3.2rem;
       padding: .25em;
     }
   }
 
+  &__datebox, &__buttons {
+    padding: 1em;
+  }
+
   &__datebox {
-    display: none;
+    display: flex;
     gap: 1em;
   }
 
@@ -28,7 +34,7 @@
       font-size: 2.6rem;
     }
     span {
-      font-size: 2rem;
+      font-size: 1.6rem;
     }
   }
 

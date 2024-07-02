@@ -1,0 +1,23 @@
+@media screen and (min-width: 768px) {
+  .menu {
+    flex-direction: row;
+
+    &__logo {
+      font-size: 2.8rem;
+    }
+
+    &__datebox, &__buttons {
+      padding: .5em;
+    }
+
+    &__date, &__time {
+      span {
+        font-size: 1.6rem;
+      }
+    }
+
+    &__date span {
+      width: 70px;
+    }
+  }
+}

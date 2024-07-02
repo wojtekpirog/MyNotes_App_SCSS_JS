@@ -1,7 +1,17 @@
 @media screen and (min-width: 992px) {
   .menu {
-    &__datebox {
-      display: flex;
+    &__logo {
+      font-size: 3.2rem;
+    }
+
+    &__date, &__time {
+      span {
+        font-size: 2rem;
+      }
+    }
+
+    &__date span {
+      width: 78px;
     }
   }
 }

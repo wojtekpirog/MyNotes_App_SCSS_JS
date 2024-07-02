@@ -53,17 +53,23 @@ body {
   justify-content: center;
   align-items: center;
   gap: 0.5em;
+  flex-direction: column;
   justify-content: space-between;
   padding: 1em;
   background-color: #202124;
 }
+.menu__logo {
+  font-size: 4rem;
+}
 .menu__logo .fa-sticky-note {
   color: #fbbc04;
-  font-size: 3.2rem;
   padding: 0.25em;
 }
+.menu__datebox, .menu__buttons {
+  padding: 1em;
+}
 .menu__datebox {
-  display: none;
+  display: flex;
   gap: 1em;
 }
 .menu__date, .menu__time {
@@ -77,7 +83,7 @@ body {
   font-size: 2.6rem;
 }
 .menu__date span, .menu__time span {
-  font-size: 2rem;
+  font-size: 1.6rem;
 }
 .menu__date span {
   width: 80px;
@@ -417,6 +423,9 @@ body {
 }
 
 @media screen and (min-width: 576px) {
+  .menu__date span, .menu__time span {
+    font-size: 2rem;
+  }
   .notes__container {
     flex-direction: row;
     justify-content: center;
@@ -427,9 +436,32 @@ body {
     width: 280px;
   }
 }
+@media screen and (min-width: 768px) {
+  .menu {
+    flex-direction: row;
+  }
+  .menu__logo {
+    font-size: 2.8rem;
+  }
+  .menu__datebox, .menu__buttons {
+    padding: 0.5em;
+  }
+  .menu__date span, .menu__time span {
+    font-size: 1.6rem;
+  }
+  .menu__date span {
+    width: 70px;
+  }
+}
 @media screen and (min-width: 992px) {
-  .menu__datebox {
-    display: flex;
+  .menu__logo {
+    font-size: 3.2rem;
+  }
+  .menu__date span, .menu__time span {
+    font-size: 2rem;
+  }
+  .menu__date span {
+    width: 78px;
   }
 }
 :root {

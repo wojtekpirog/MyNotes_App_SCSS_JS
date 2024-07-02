@@ -28,9 +28,10 @@ let searchButton;
 let clearSearchBarBtn;
 // Error
 let error;
-
 // Każda notatka będzie miała własny, unikalny identyfikator:
 let noteId = 0;
+// Ikonka kategorii
+let categoryIcon;
 
 const main = () => { 
   prepareDOMElements();
@@ -126,16 +127,17 @@ const addNote = () => {
 }
 
 const createNote = () => {
-  const selectedValue = notesSelect.options[notesSelect.selectedIndex];
+  const selectedValue = notesSelect.options[notesSelect.selectedIndex].textContent;
   const notesTemplate = document.querySelector(".notes__template").content.cloneNode(true);
-
   const note = notesTemplate.querySelector(".notes__note");
+  // Dobierz ikonę kategorii:
+  getCategoryIcon(selectedValue);
   // Ustaw ID notatki:
   note.setAttribute("id", `note-${noteId}`);
   // Ustaw tytuł notatki:
-  note.querySelector(".notes__title").textContent = notesInput.value;
+  note.querySelector(".notes__title").innerHTML = `${categoryIcon} ${notesInput.value}`;
   // Ustaw kategorię notatki:
-  note.querySelector(".notes__category").innerHTML = `<b>Category:</b> ${selectedValue.textContent}`;
+  note.querySelector(".notes__category").innerHTML = `<b>Category:</b> ${selectedValue}`;
   // Ustaw treść notatki:
   note.querySelector(".notes__body").innerHTML = `<b>Details:</b> ${notesTextarea.value}`;
   // Ustaw atrybut "onclick" dla przycisku usuwania notatki:
@@ -145,6 +147,26 @@ const createNote = () => {
 
   noteId += 1;
   closePanel();
+}
+
+const getCategoryIcon = (selectedValue) => {
+  switch (selectedValue) {
+    case "Shopping":
+      categoryIcon = `<i class="fas fa-shopping-cart"></i>`;
+      break;
+    case "Work":
+      categoryIcon = `<i class="fas fa-briefcase"></i>`;
+      break;
+    case "House":
+      categoryIcon = `<i class="fas fa-home"></i>`;
+      break;
+    case "Gym":
+      categoryIcon = `<i class="fas fa-dumbbell"></i>`;
+      break;
+    case "Other":
+      categoryIcon = `<i class="fas fa-pen"></i>`;
+      break;
+  }
 }
 
 const displayError = (message) => {
