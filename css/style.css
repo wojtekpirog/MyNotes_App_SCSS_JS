@@ -228,7 +228,7 @@ body {
   padding-top: 1em;
   font-size: 1.8rem;
 }
-.notes__delete-btn {
+.notes__edit-btn, .notes__delete-btn {
   padding: 0.5em;
   border: 2px solid transparent;
   border-radius: 0.25em;
@@ -236,9 +236,14 @@ body {
   color: #eee;
   font-size: 1.8rem;
   cursor: pointer;
-  padding: 0;
-  color: #c62828;
+  padding: 0.15em;
   transition: color 200ms ease;
+}
+.notes__edit-btn:hover {
+  color: #fbbc04;
+}
+.notes__delete-btn {
+  color: #c62828;
 }
 .notes__delete-btn:hover {
   color: #7c1818;

@@ -36,11 +36,18 @@
     font-size: 1.8rem;
   }
 
-  &__delete-btn {
+  &__edit-btn, &__delete-btn {
     @include utils.buttonStyles;
-    padding: 0;
-    color: utils.$danger;
+    padding: .15em;
     transition: color 200ms ease;
+  }
+
+  &__edit-btn:hover {
+    color: utils.$gold;
+  }
+
+  &__delete-btn {
+    color: utils.$danger;
     
     &:hover {
       color: utils.$danger-dark;
