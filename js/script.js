@@ -13,12 +13,16 @@ let confirmDeletionBtn;
 let cancelDeletionBtn;
 // Container for notes
 let notesContainer;
-// Notes panel
-let notesPanel;
+// Notes shadow
 let notesShadow;
+// Note creation panel
+let notesPanelTemplate;
+let notesPanel;
 let notesInput;
 let notesSelect;
 let notesTextarea;
+// Notes creation error
+let notesPanelError;
 // Note panel buttons
 let saveButton;
 let cancelButton;
@@ -26,8 +30,15 @@ let cancelButton;
 let searchInput;
 let searchButton;
 let clearSearchBarBtn;
-// Error
-let error;
+// Note edition panel
+let editPanelTemplate;
+let editPanel;
+let editPanelInput;
+let editPanelSelect;
+let editPanelTextarea;
+// Notes edition error
+let editionPanelError;
+
 // Każda notatka będzie miała własny, unikalny identyfikator:
 let noteId = 0;
 // Ikonka kategorii
@@ -42,39 +53,63 @@ const main = () => {
 }
 
 const prepareDOMElements = () => {
+  // Footer year
   footerYear = document.querySelector(".footer__year");
+  // time box
   hourSpan = document.querySelector(".menu__date > span");
   dateSpan = document.querySelector(".menu__time > span");
+  // Add note button
   addNoteButton = document.querySelector(".menu__button--add");
-  saveButton = document.querySelector(".notes__panel-button--save");
-  cancelButton = document.querySelector(".notes__panel-button--cancel");
+  // Delete all notes button
   deleteAllButton = document.querySelector(".menu__button--delete");
+  // Popup with warning
   deletionConfirmationPopup = document.querySelector(".deletion-modal");
   confirmDeletionBtn = document.querySelector(".deletion-modal__button--delete");
   cancelDeletionBtn = document.querySelector(".deletion-modal__button--cancel");
+  // Note edition panel
+  editPanelTemplate = document.querySelector(".notes-panel-template").content.cloneNode(true);
+  editPanel = editPanelTemplate.querySelector(".notes__panel");
+  editPanelInput = editPanel.querySelector(".notes__panel-input");
+  editPanelSelect = editPanel.querySelector(".notes__panel-select");
+  editPanelTextarea = editPanel.querySelector(".notes__panel-text");
+  // Notes edition error
+  editionPanelError = editPanel.querySelector(".notes__panel-error");
+  // Insert notes edition panel into DOM
+  deletionConfirmationPopup.insertAdjacentElement("afterend", editPanel);
+  // Container for notes
   notesContainer = document.querySelector(".notes__container");
-  notesPanel = document.querySelector(".notes__panel");
+  // Notes shadow
   notesShadow = document.querySelector(".notes__shadow");
-  notesInput = document.querySelector(".notes__panel-input");
-  notesSelect = document.querySelector(".notes__panel-select");
-  notesTextarea = document.querySelector(".notes__panel-text");
+  // Note creation panel
+  notesPanelTemplate = document.querySelector(".notes-panel-template").content.cloneNode(true);
+  notesPanel = notesPanelTemplate.querySelector(".notes__panel");
+  notesInput = notesPanel.querySelector(".notes__panel-input");
+  notesSelect = notesPanel.querySelector(".notes__panel-select");
+  notesTextarea = notesPanel.querySelector(".notes__panel-text");
+  // Notes creation error
+  notesPanelError = notesPanel.querySelector(".notes__panel-error");
+  // Insert notes creation panel into DOM
+  notesContainer.insertAdjacentElement("afterend", notesPanel);
+  // Note panel buttons
+  saveButton = document.querySelector(".notes__panel-button--save");
+  cancelButton = document.querySelector(".notes__panel-button--cancel");
+  // Search box
   searchInput = document.querySelector(".search-box__input");
   searchButton = document.querySelector(".search-box__button");
   clearSearchBarBtn = document.querySelector(".search-box__button--clear");
-  error = document.querySelector(".notes__panel-error");
 }
 
 const prepareDOMEvents = () => {
   addNoteButton.addEventListener("click", openPanel);
-  cancelButton.addEventListener("click", closePanel);
-  saveButton.addEventListener("click", addNote);
-  deleteAllButton.addEventListener("click", openConfirmPopup);
-  confirmDeletionBtn.addEventListener("click", deleteAllNotes);
-  cancelDeletionBtn.addEventListener("click", closeConfirmPopup);
-  searchInput.addEventListener("keyup", searchForNotes);
-  searchButton.addEventListener("click", searchForNotes);
-  clearSearchBarBtn.addEventListener("click", clearSearchBar);
-  window.addEventListener("click", (event) => event.target === notesShadow && closePanel());
+  // cancelButton.addEventListener("click", closePanel);
+  // saveButton.addEventListener("click", addNote);
+  // deleteAllButton.addEventListener("click", openConfirmPopup);
+  // confirmDeletionBtn.addEventListener("click", deleteAllNotes);
+  // cancelDeletionBtn.addEventListener("click", closeConfirmPopup);
+  // searchInput.addEventListener("keyup", searchForNotes);
+  // searchButton.addEventListener("click", searchForNotes);
+  // clearSearchBarBtn.addEventListener("click", clearSearchBar);
+  // window.addEventListener("click", (event) => event.target === notesShadow && closePanel());
 }
 
 const setFooterYear = () => {
@@ -98,8 +133,15 @@ const setDateAndTime = () => {
 const updateDateAndTime = () => setInterval(setDateAndTime, 1000);
 
 const openPanel = () => {
-  notesPanel.classList.add("active", "animation-in");
-  notesShadow.classList.add("active", "animation-in");
+  // const panel = notesPanel.querySelector(".notes__panel");
+  // panel.classList.add("active", "animation-in");
+  // notesShadow.classList.add("active", "animation-in");
+
+  // console.log(panel);
+  // console.log(`Is panel part of DOM? ${document.contains(panel)}`);
+  // console.log(`Is notesShadow part of DOM? ${document.contains(notesShadow)}`);
+  console.log(notesPanelTemplate);
+  console.log(`Is panel inside DOM: ${document.contains(notesPanelTemplate)}`);
 }
 
 const closePanel = () => {
