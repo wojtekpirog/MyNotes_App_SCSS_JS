@@ -14,7 +14,7 @@ let cancelDeletionBtn;
 // Container for notes
 let notesContainer;
 // Notes shadow
-let notesShadow;
+let shadow;
 // Note creation panel
 let notesPanelTemplate;
 let notesPanel;
@@ -22,7 +22,7 @@ let notesInput;
 let notesSelect;
 let notesTextarea;
 // Notes creation error
-let notesPanelError;
+let panelError;
 // Note panel buttons
 let saveButton;
 let cancelButton;
@@ -37,8 +37,7 @@ let editPanelInput;
 let editPanelSelect;
 let editPanelTextarea;
 // Notes edition error
-let editionPanelError;
-
+// let editionPanelError;
 // Każda notatka będzie miała własny, unikalny identyfikator:
 let noteId = 0;
 // Ikonka kategorii
@@ -73,13 +72,13 @@ const prepareDOMElements = () => {
   editPanelSelect = editPanel.querySelector(".notes__panel-select");
   editPanelTextarea = editPanel.querySelector(".notes__panel-text");
   // Notes edition error
-  editionPanelError = editPanel.querySelector(".notes__panel-error");
+  // editionPanelError = editPanel.querySelector(".notes__panel-error");
   // Insert notes edition panel into DOM
   deletionConfirmationPopup.insertAdjacentElement("afterend", editPanel);
   // Container for notes
   notesContainer = document.querySelector(".notes__container");
   // Notes shadow
-  notesShadow = document.querySelector(".notes__shadow");
+  shadow = document.querySelector(".notes__shadow");
   // Note creation panel
   notesPanelTemplate = document.querySelector(".notes-panel-template").content.cloneNode(true);
   notesPanel = notesPanelTemplate.querySelector(".notes__panel");
@@ -87,10 +86,10 @@ const prepareDOMElements = () => {
   notesSelect = notesPanel.querySelector(".notes__panel-select");
   notesTextarea = notesPanel.querySelector(".notes__panel-text");
   // Notes creation error
-  notesPanelError = notesPanel.querySelector(".notes__panel-error");
+  panelError = notesPanel.querySelector(".notes__panel-error");
   // Insert notes creation panel into DOM
   notesContainer.insertAdjacentElement("afterend", notesPanel);
-  // Note panel buttons
+  // Note panel buttonsexi
   saveButton = document.querySelector(".notes__panel-button--save");
   cancelButton = document.querySelector(".notes__panel-button--cancel");
   // Search box
@@ -100,16 +99,17 @@ const prepareDOMElements = () => {
 }
 
 const prepareDOMEvents = () => {
-  addNoteButton.addEventListener("click", openPanel);
-  // cancelButton.addEventListener("click", closePanel);
-  // saveButton.addEventListener("click", addNote);
-  // deleteAllButton.addEventListener("click", openConfirmPopup);
-  // confirmDeletionBtn.addEventListener("click", deleteAllNotes);
-  // cancelDeletionBtn.addEventListener("click", closeConfirmPopup);
-  // searchInput.addEventListener("keyup", searchForNotes);
+  addNoteButton.addEventListener("click", () => openPanel(notesPanel));
+  saveButton.addEventListener("click", addNote);
+  cancelButton.addEventListener("click", closePanel);
+  deleteAllButton.addEventListener("click", openConfirmPopup);
+  confirmDeletionBtn.addEventListener("click", deleteAllNotes);
+  cancelDeletionBtn.addEventListener("click", closeConfirmPopup);
+  searchInput.addEventListener("keyup", searchForNotes);
   // searchButton.addEventListener("click", searchForNotes);
   // clearSearchBarBtn.addEventListener("click", clearSearchBar);
-  // window.addEventListener("click", (event) => event.target === notesShadow && closePanel());
+  // window.addEventListener("click", (event) => event.target === shadow && closePanel());
+  window.addEventListener("click", (event) => event.target === shadow && closePanel());
 }
 
 const setFooterYear = () => {
@@ -133,25 +133,18 @@ const setDateAndTime = () => {
 const updateDateAndTime = () => setInterval(setDateAndTime, 1000);
 
 const openPanel = () => {
-  // const panel = notesPanel.querySelector(".notes__panel");
-  // panel.classList.add("active", "animation-in");
-  // notesShadow.classList.add("active", "animation-in");
-
-  // console.log(panel);
-  // console.log(`Is panel part of DOM? ${document.contains(panel)}`);
-  // console.log(`Is notesShadow part of DOM? ${document.contains(notesShadow)}`);
-  console.log(notesPanelTemplate);
-  console.log(`Is panel inside DOM: ${document.contains(notesPanelTemplate)}`);
+  notesPanel.classList.add("active", "animation-in");
+  shadow.classList.add("active", "animation-in");
 }
 
 const closePanel = () => {
   notesPanel.classList.remove("active", "animation-in");
-  notesShadow.classList.remove("active", "animation-in");
+  shadow.classList.remove("active", "animation-in");
 
   notesInput.value = "";
   notesSelect.value = "default";
   notesTextarea.value = "";
-  error.style.display = "none";
+  clearError();
 }
 
 const addNote = () => {
@@ -171,6 +164,7 @@ const createNote = () => {
   const selectedValue = notesSelect.options[notesSelect.selectedIndex].textContent;
   const notesTemplate = document.querySelector(".notes__template").content.cloneNode(true);
   const note = notesTemplate.querySelector(".notes__note");
+
   // Dobierz ikonę kategorii:
   getCategoryIcon(selectedValue);
   // Ustaw ID notatki:
@@ -213,13 +207,13 @@ const getCategoryIcon = (selectedValue) => {
 }
 
 const displayError = (message) => {
-  error.textContent = message;
-  error.style.display = "block";
+  panelError.textContent = message;
+  panelError.style.display = "block";
 }
 
 const clearError = () => {
-  error.textContent = "";
-  error.style.display = "none";
+  panelError.textContent = "";
+  panelError.style.display = "none";
 }
 
 const searchForNotes = (event) => {
@@ -228,7 +222,7 @@ const searchForNotes = (event) => {
 
   allNotes.forEach((note) => {
     const notesTitle = note.querySelector(".notes__title").textContent.toLowerCase();
-    
+
     if (notesTitle.indexOf(searchText) !== -1) {
       note.style.display = "block";
     } else {
@@ -242,8 +236,6 @@ const clearSearchBar = () => {
     const allNotes = document.querySelectorAll(".notes__note");
     allNotes.forEach((note) => note.style.display = "block");
     searchInput.value = "";
-  } else {
-    return false;
   }
 }
 
@@ -253,33 +245,67 @@ const deleteNote = (noteId) => {
 }
 
 const openEditionPanel = (noteId) => {
-  notesPanel.classList.add("active", "animation-in");
-  notesShadow.classList.add("active", "animation-in");
-
-  const saveChangesBtn = document.querySelector(".notes__panel-button--save");
-  const cancelChangesBtn = document.querySelector(".notes__panel-button--cancel");
-
+  editPanel.classList.add("active", "animation-in");
+  shadow.classList.add("active", "animation-in");
+  // Pobierz przyciski do zatwierdzenia i anulowania zmian:
+  const saveChangesButton = editPanel.querySelector(".notes__panel-button--save");
+  const cancelChangesButton = editPanel.querySelector(".notes__panel-button--cancel");
+  // Pobierz notatke do edycji:
   const noteToEdit = document.getElementById(`note-${noteId}`);
-  notesInput.value = noteToEdit.querySelector(".notes__title").textContent.slice(1);
-  notesSelect.value = noteToEdit.querySelector(".notes__category").textContent.slice(10).toLowerCase();
-  notesTextarea.value = noteToEdit.querySelector(".notes__body").textContent.slice(9);
+  // Uzupełnij pola edycyjne danymi z notatki:
+  console.log(noteToEdit.querySelector(".notes__title").textContent);
+  console.log(noteToEdit.querySelector(".notes__category").textContent);
+  console.log(noteToEdit.querySelector(".notes__body").textContent);
 
-  saveChangesBtn.addEventListener("click", () => editNote(noteId));
-  cancelChangesBtn.addEventListener("click", closePanel());
+  editPanelInput.value = noteToEdit.querySelector(".notes__title").textContent.slice(1);
+  editPanelSelect.value = noteToEdit.querySelector(".notes__category").textContent.slice(10).toLowerCase();
+  editPanelTextarea.value = noteToEdit.querySelector(".notes__body").textContent.slice(6);
+  // Dodaj zdarzenie klikniecia na przycisk zatwierdzenia zmian:
+  saveChangesButton.addEventListener("click", () => editNote(noteToEdit));
+  // Dodaj zdarzenie klikniecia na przycisk anulowania zmian:
+  cancelChangesButton.addEventListener("click", closeEditionPanel);
 }
 
-const editNote = (noteId) => {
-  console.log(`Notatka o ID ${noteId} została zmieniona.`);
+const editNote = (noteToEdit) => {
+  // Pobierz nazwę opcji wyboru z listy rozwijanej:
+  const selectedValue = editPanelSelect.options[editPanelSelect.selectedIndex].textContent;
+  // Dobierz ikonę kategorii:
+  getCategoryIcon(selectedValue);
+
+  if (editPanelInput.value !== "" && editPanelSelect.value !== "default" && editPanelTextarea.value !== "") {
+    // Ustaw nowy tytuł notatki:
+    noteToEdit.querySelector(".notes__title").innerHTML = `${categoryIcon} ${editPanelInput.value}`;
+    // Ustaw nową kategorię notatki:
+    noteToEdit.querySelector(".notes__category").innerHTML = `<b>Category:</b> ${selectedValue}`;
+    // Ustaw nową treść notatki:
+    noteToEdit.querySelector(".notes__body").innerHTML = `<b>Body:</b> ${editPanelTextarea.value}`;
+  } else if (editPanelInput.value === "") {
+    displayError("Enter your note's title!");
+  } else if (editPanelSelect.value === "default") {
+    displayError("Select your note's category!");
+  } else if (editPanelTextarea.value === "") {
+    displayError("Enter your note's content!");
+  }
+}
+
+const closeEditionPanel = () => {
+  editPanel.classList.remove("active", "animation-in");
+  shadow.classList.remove("active", "animation-in");
+
+  editPanelInput.value = "";
+  editPanelSelect.value = "default";
+  editPanelTextarea.value = "";
+  clearError();
 }
 
 const openConfirmPopup = () => {
   deletionConfirmationPopup.classList.add("active", "animation-in");
-  notesShadow.classList.add("active", "animation-in");
+  shadow.classList.add("active", "animation-in");
 }
 
 const closeConfirmPopup = () => {
   deletionConfirmationPopup.classList.remove("active", "animation-in");
-  notesShadow.classList.remove("active", "animation-in");
+  shadow.classList.remove("active", "animation-in");
 }
 
 const deleteAllNotes = () => {
